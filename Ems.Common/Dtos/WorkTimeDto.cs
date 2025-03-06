@@ -1,4 +1,4 @@
-﻿using EMS.Common.Dtos;
+﻿using Ems.Common.Dtos;
 namespace Ems.Common.Dtos;
 public class WorkTimeDto : BaseInfoDto
 {

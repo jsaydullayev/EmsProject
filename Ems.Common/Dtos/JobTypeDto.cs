@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using EMS.Common.Dtos;
+using Ems.Common.Dtos;
 
 namespace Ems.Common.Dtos;
 public class JobTypeDto

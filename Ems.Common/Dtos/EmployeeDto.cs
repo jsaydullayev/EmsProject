@@ -1,6 +1,6 @@
 ﻿using Ems.Common.Dtos;
 
-namespace EMS.Common.Dtos;
+namespace Ems.Common.Dtos;
 
 public class EmployeeDto
 {

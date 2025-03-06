@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using EMS.Data.Entities.BaseEntities;
+using Ems.Data.Entities.BaseEntities;
 
-namespace EMS.Data.Entities;
+namespace Ems.Data.Entities;
 [Table("info_gender", Schema ="info")]
 public class Gender : BaseInfoEntity
 {

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using EMS.Data.Entities.BaseEntities;
+using Ems.Data.Entities.BaseEntities;
 
-namespace EMS.Data.Entities;
+namespace Ems.Data.Entities;
 
 [Table("info_content", Schema = "info")]
 public class InfoContent: BaseCommonEntity

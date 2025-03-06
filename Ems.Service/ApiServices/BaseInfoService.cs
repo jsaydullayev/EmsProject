@@ -1,6 +1,6 @@
 ﻿using Ems.Service.ApiServices.Contracts;
 using Ems.Service.Extensions;
-using EMS.Data.Repositories.Contracts;
+using Ems.Data.Repositories.Contracts;
 using StatusGeneric;
 
 namespace Ems.Service.ApiServices;

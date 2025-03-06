@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace EMS.Data.Entities.BaseEntities;
+namespace Ems.Data.Entities.BaseEntities;
 
 
 public abstract class BaseInfoEntity: BaseCommonEntity

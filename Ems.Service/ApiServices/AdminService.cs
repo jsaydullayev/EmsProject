@@ -1,9 +1,7 @@
-﻿using Ems.Service.ApiServices.Contracts;
+﻿using Ems.Data.Entities;
+using Ems.Data.Repositories.Contracts;
+using Ems.Service.ApiServices.Contracts;
 using Ems.Service.Extensions;
-using EMS.Common.Models.BaseModels;
-using EMS.Common.Models.ContentModels;
-using EMS.Data.Entities;
-using EMS.Data.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 

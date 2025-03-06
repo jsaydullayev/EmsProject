@@ -1,7 +1,7 @@
-﻿using EMS.Data.Entities.BaseEntities;
+﻿using Ems.Data.Entities.BaseEntities;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EMS.Data.Entities;
+namespace Ems.Data.Entities;
 [Table("info_vacation_status", Schema ="my")]
 public class VacationStatus : BaseInfoEntity
 {

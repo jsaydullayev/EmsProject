@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EMS.Data.Entities.BaseEntities;
+namespace Ems.Data.Entities.BaseEntities;
 public abstract class BaseCommonEntity
 {
 

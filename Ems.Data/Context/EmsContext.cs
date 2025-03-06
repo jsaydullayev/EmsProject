@@ -1,9 +1,9 @@
 ﻿using System.Net.Mime;
 using Ems.Data.Entities;
-using EMS.Data.Entities;
+using Ems.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace EMS.Data.Contexts;
+namespace Ems.Data.Contexts;
 public class EMSContext(DbContextOptions<EMSContext> options) : DbContext(options)
 {
     public DbSet<InfoCountry> InfoCountries { get; set; }

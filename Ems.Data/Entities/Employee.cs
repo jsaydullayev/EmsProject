@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using EMS.Data.Entities;
+using Ems.Data.Entities;
 
 namespace Ems.Data.Entities;
 

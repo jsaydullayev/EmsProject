@@ -1,4 +1,4 @@
-﻿namespace EMS.Common.Dtos;
+﻿namespace Ems.Common.Dtos;
 
 public class BaseInfoDto
 {

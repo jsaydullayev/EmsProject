@@ -1,4 +1,4 @@
-﻿using EMS.Common.Dtos;
+﻿using Ems.Common.Dtos;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ems.Common.Dtos;

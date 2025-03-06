@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 
-namespace EMS.Data.Repositories.Contracts;
+namespace Ems.Data.Repositories.Contracts;
 //T => user
 public interface IBaseRepository<T>  where T : class
 {

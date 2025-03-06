@@ -1,4 +1,4 @@
-﻿using EMS.Data.Entities.BaseEntities;
+﻿using Ems.Data.Entities.BaseEntities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

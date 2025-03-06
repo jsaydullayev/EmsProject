@@ -1,9 +1,9 @@
-﻿using EMS.Data.Entities.BaseEntities;
+﻿using Ems.Data.Entities.BaseEntities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Ems.Data.Entities;
 
-namespace EMS.Data.Entities;
+namespace Ems.Data.Entities;
 [Table("info_job_type",Schema ="info")]
 public class JobType : BaseInfoEntity
 {

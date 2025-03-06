@@ -1,5 +1,5 @@
-﻿using EMS.Data.Contexts;
-using EMS.Data.Repositories.Contracts;
+﻿using Ems.Data.Contexts;
+using Ems.Data.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Ems.Data.Repositories;

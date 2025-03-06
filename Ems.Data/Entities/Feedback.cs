@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Ems.Data.Entities;
-using EMS.Data.Entities.BaseEntities;
+using Ems.Data.Entities.BaseEntities;
 
-namespace EMS.Data.Entities;
+namespace Ems.Data.Entities;
 
 [Table("feedback", Schema = "my")]
 public class Feedback : BaseCommonEntity
