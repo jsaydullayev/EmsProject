@@ -1,4 +1,4 @@
-﻿namespace EMS.Common.Models.ContentModels;
+﻿namespace Ems.Common.Models.ContentModels;
 
 public class CreateContentModel
 {

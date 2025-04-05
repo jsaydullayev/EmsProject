@@ -1,8 +1,8 @@
 using Ems.Data.Repositories;
 using Ems.Service.ApiServices;
 using Ems.Service.ApiServices.Contracts;
-using EMS.Data.Contexts;
-using EMS.Data.Repositories.Contracts;
+using Ems.Data.Contexts;
+using Ems.Data.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

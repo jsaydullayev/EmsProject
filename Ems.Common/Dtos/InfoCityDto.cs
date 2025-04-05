@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 namespace Ems.Common.Dtos;
 public class InfoCityDto : BaseInfoDto
 {
-    public string Code { get; set; }
     public int InfoCountryId { get; set; }
     public InfoCountryDto? InfoCountry { get; set; }
     public List<EmployeeDto> Employees { get; set; }

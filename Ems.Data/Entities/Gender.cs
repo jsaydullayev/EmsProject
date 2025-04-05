@@ -5,4 +5,6 @@ namespace Ems.Data.Entities;
 [Table("info_gender", Schema ="info")]
 public class Gender : BaseInfoEntity
 {
+    [InverseProperty(nameof(User.Gender))]
+    public List<User>? Users { get; set; }
 }
