@@ -28,6 +28,6 @@ public class CreateUserModel
     public int GenderId { get; set; }
     
     public required string Password { get; set; }
-    [Compare(nameof(Password)]
+    [Compare(nameof(Password))]
     public required string ConfirmPassword { get; set; }
 }

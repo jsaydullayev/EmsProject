@@ -10,10 +10,17 @@ using Microsoft.EntityFrameworkCore;
 using StatusGeneric;
 
 namespace Ems.Service.ApiServices;
-public class UserService(IBaseRepository<User> userRepository, JwtService jwtService) : StatusGenericHandler, IUserService
+public class UserService : StatusGenericHandler, IUserService
 {
-    private readonly IBaseRepository<User> _userRepository = userRepository;
+    private readonly IBaseRepository<User> _userRepository;
+    private readonly JwtService _jwtService;
 
+    // Konstruktor orqali dependensiyalarni inject qilish
+    public UserService(IBaseRepository<User> userRepository, JwtService jwtService)
+    {
+        _userRepository = userRepository;
+        _jwtService = jwtService;
+    }
     public async Task<List<UserDto>> GetAllUsers()
     {
         var users = (await _userRepository.GetAll()).ToList();
@@ -57,14 +64,14 @@ public class UserService(IBaseRepository<User> userRepository, JwtService jwtSer
             AddError("Invalid password");
             return null;
         }
-        var token = jwtService.GenerateToken(user, true);
+        var token = _jwtService.GenerateToken(user, true);
         await _userRepository.SaveChanges();
         return token;
     }
 
     public async Task<TokenDto?> RefreshToken(TokenDto model)
     {
-        var (isValidAccessToken, username) = jwtService.ValidateToken(model.AccessToken);
+        var (isValidAccessToken, username) = _jwtService.ValidateToken(model.AccessToken);
 
         if (!isValidAccessToken)
         {
@@ -86,7 +93,7 @@ public class UserService(IBaseRepository<User> userRepository, JwtService jwtSer
             return null;
         }
 
-        var tokenDto = jwtService.GenerateToken(user, false);
+        var tokenDto = _jwtService.GenerateToken(user, false);
         return tokenDto;
     }
 

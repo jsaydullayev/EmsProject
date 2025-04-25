@@ -20,7 +20,6 @@ public class JwtService
             .Get<JwtParam>()!;
     }
 
-
     #region GenerateToken
 
 

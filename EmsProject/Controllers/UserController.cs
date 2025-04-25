@@ -2,7 +2,6 @@
 using Ems.Service.ApiServices;
 using Ems.Service.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using StatusGeneric;
 
 namespace Ems.Api.Controllers;
 
@@ -26,9 +25,26 @@ public class UserController(UserService userService) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(LoginModel model) 
+    public async Task<IActionResult> Login(LoginModel model)
     {
         var tokenDto = await _userService.Login(model);
-        if(tokenDto is )
+        if (_userService.IsValid)
+        {
+            return Ok(tokenDto);
+        }
+        _userService.CopyToModelState(ModelState);
+        return BadRequest(ModelState);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Profile(Guid userId)
+    {
+        var user = await _userService.GetUserById(userId);
+        if (_userService.IsValid)
+        {
+            return Ok(user);
+        }
+        _userService.CopyToModelState(ModelState);
+        return BadRequest(ModelState);
     }
 }

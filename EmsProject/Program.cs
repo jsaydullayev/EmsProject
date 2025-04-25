@@ -8,12 +8,11 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Ems.Common.JwtFile;
 using Microsoft.IdentityModel.Tokens;
+using Ems.Service.JWT;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
@@ -51,6 +50,9 @@ builder.Services.AddControllers();
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IBaseInfoService<>), typeof(BaseInfoService<>));
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<CountryService>();
+builder.Services.AddScoped<JwtService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -58,7 +60,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         Configuration.
         GetSection("JwtSettings").
         Get<JwtParam>();
-    var key = System.Text.Encoding.UTF32.GetBytes(jwtParam!.Key);
+    var key = System.Text.Encoding.UTF32.GetBytes(jwtParam.Key);
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidIssuer = jwtParam.Issuer,
