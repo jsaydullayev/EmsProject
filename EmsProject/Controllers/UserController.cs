@@ -1,5 +1,6 @@
 ﻿using Ems.Common.Models.UserModels;
 using Ems.Service.ApiServices;
+using Ems.Service.ApiServices.Contracts;
 using Ems.Service.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,9 +8,9 @@ namespace Ems.Api.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-public class UserController(UserService userService) : ControllerBase
+public class UserController(IUserService userService) : ControllerBase
 {
-    private readonly UserService _userService = userService;
+    private readonly IUserService _userService = userService;
 
 
     [HttpPost]

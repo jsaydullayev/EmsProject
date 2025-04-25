@@ -101,7 +101,7 @@ public class UserService : StatusGenericHandler, IUserService
     {
         var userDto = await GetUserByUsername(model.Username);
         var user = userDto!.MapToEntity<User, UserDto>();
-        if (user is null)
+        if (user is not null)
         {
             AddError("Username already taken");
             return;
