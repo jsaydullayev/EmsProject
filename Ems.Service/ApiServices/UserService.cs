@@ -12,24 +12,24 @@ using StatusGeneric;
 namespace Ems.Service.ApiServices;
 public class UserService : StatusGenericHandler, IUserService
 {
-    private readonly IBaseRepository<User> _userRepository;
+    private readonly IUnitOfWork _userRepository;
     private readonly JwtService _jwtService;
 
     // Konstruktor orqali dependensiyalarni inject qilish
-    public UserService(IBaseRepository<User> userRepository, JwtService jwtService)
+    public UserService(IUnitOfWork userRepository, JwtService jwtService)
     {
         _userRepository = userRepository;
         _jwtService = jwtService;
     }
     public async Task<List<UserDto>> GetAllUsers()
     {
-        var users = (await _userRepository.GetAll()).ToList();
+        var users = (await _userRepository.UserRepository().GetAll()).ToList();
         return users.MapToDtos<User, UserDto>();
     }
 
     public async Task<UserDto?> GetUserById(Guid id)
     {
-        var user = await _userRepository.GetById(id);
+        var user = await _userRepository.UserRepository().GetById(id);
         if (user is null)
         {
             AddError("User not found");
@@ -40,7 +40,7 @@ public class UserService : StatusGenericHandler, IUserService
 
     public async Task<UserDto?> GetUserByUsername(string username)
     {
-        var user = await (await _userRepository.GetAll()).Where(u => u.Username == username).FirstOrDefaultAsync();
+        var user = await (await _userRepository.UserRepository().GetAll()).Where(u => u.Username == username).FirstOrDefaultAsync();
         if (user is null)
         {
             AddError("User not found");
@@ -65,7 +65,7 @@ public class UserService : StatusGenericHandler, IUserService
             return null;
         }
         var token = _jwtService.GenerateToken(user, true);
-        await _userRepository.SaveChanges();
+        await _userRepository.UserRepository().SaveChanges();
         return token;
     }
 
@@ -109,8 +109,8 @@ public class UserService : StatusGenericHandler, IUserService
 
         var newUser = model.MapToEntity<User, CreateUserModel>();
         newUser.PasswordHash = new PasswordHasher<User>().HashPassword(newUser, model.Password);
-        await _userRepository.Add(newUser);
-        await _userRepository.SaveChanges();
+        await _userRepository.UserRepository().Add(newUser);
+        await _userRepository.UserRepository().SaveChanges();
 
     }
 
