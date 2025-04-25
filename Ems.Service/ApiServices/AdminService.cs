@@ -10,24 +10,22 @@ using Microsoft.EntityFrameworkCore;
 namespace Ems.Service.ApiServices;
 public class AdminService : IAdminService
 {
-    private readonly IBaseRepository<InfoContentType> _contentTypeRepository;
-    private readonly IBaseRepository<InfoContent> _infoContentRepository;
+    private readonly IUnitOfWork _Repository;
 
-    public AdminService(IBaseRepository<InfoContentType> contentTypeRepository, IBaseRepository<InfoContent> infoContentRepository)
+    public AdminService(IUnitOfWork Repository)
     {
-        _contentTypeRepository = contentTypeRepository;
-        _infoContentRepository = infoContentRepository;
+        _Repository = Repository;
     }
 
     public async Task AddContent(IFormFile file)
     {
-        await using var transaction = _contentTypeRepository.BeginTransaction();
+        await using var transaction = _Repository.InfoContentTypeRepository().BeginTransaction();
         {
             try
             {
                 var type = file.ContentType;
 
-                var contentType = await (await _contentTypeRepository
+                var contentType = await (await _Repository.InfoContentTypeRepository()
                     .GetAll()).Where(c => c.FullName == type).FirstOrDefaultAsync();
 
                 if (contentType is null)
@@ -41,8 +39,8 @@ public class AdminService : IAdminService
                     };
 
                     contentType = model.MapToEntity<InfoContentType, CreateBaseInfoModel>();
-                    await _contentTypeRepository.Add(contentType);
-                    await _contentTypeRepository.SaveChanges();
+                    await _Repository.InfoContentTypeRepository().Add(contentType);
+                    await _Repository.InfoContentTypeRepository().SaveChanges();
                 }
 
                 var ms = new MemoryStream();
@@ -61,8 +59,8 @@ public class AdminService : IAdminService
 
                 var infoContent = contentModel.MapToEntity<InfoContent, CreateContentModel>();
 
-                await _infoContentRepository.Add(infoContent);
-                await _infoContentRepository.SaveChanges();
+                await _Repository.InfoContentRepository().Add(infoContent);
+                await _Repository.InfoContentRepository().SaveChanges();
 
                 Console.WriteLine("Successfully added content");
 
