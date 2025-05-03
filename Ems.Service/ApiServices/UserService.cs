@@ -8,6 +8,7 @@ using Ems.Service.JWT;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StatusGeneric;
+using System.Security.Claims;
 
 namespace Ems.Service.ApiServices;
 public class UserService : StatusGenericHandler, IUserService
@@ -68,6 +69,23 @@ public class UserService : StatusGenericHandler, IUserService
         await _userRepository.UserRepository().SaveChanges();
         return token;
     }
+
+   // public Task<ProfileModel> Profile(ClaimsPrincipal? user)
+   // {
+   //     if (user is null)
+   //     {
+   //         AddError("User not found");
+   //     }
+   //     var userClaims = user.FindFirst(ClaimTypes.NameIdentifier);
+   //     if (userClaims is null)
+   //         AddError("Id not found");
+   //
+   //     var userdb = _userRepository.UserRepository().GetById(userClaims);
+   //     if (userdb is null)
+   //         AddError("User not found");
+   //
+   //     var userProfile = userdb.<User, ProfileModel>();
+   // }
 
     public async Task<TokenDto?> RefreshToken(TokenDto model)
     {

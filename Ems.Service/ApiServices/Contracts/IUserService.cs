@@ -1,6 +1,7 @@
 ﻿using Ems.Common.Dtos;
 using Ems.Common.Models.UserModels;
 using StatusGeneric;
+using System.Security.Claims;
 namespace Ems.Service.ApiServices.Contracts;
 public interface IUserService : IStatusGeneric
 {
@@ -10,4 +11,5 @@ public interface IUserService : IStatusGeneric
     Task Register(CreateUserModel model);
     Task<TokenDto?> Login(LoginModel model);
     Task<TokenDto?> RefreshToken(TokenDto model);
+    Task<ProfileModel> Profile(ClaimsPrincipal? user);
 }
