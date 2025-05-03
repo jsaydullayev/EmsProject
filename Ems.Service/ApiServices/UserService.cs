@@ -43,7 +43,6 @@ public class UserService : StatusGenericHandler, IUserService
         var user = await (await _userRepository.UserRepository().GetAll()).Where(u => u.Username == username).FirstOrDefaultAsync();
         if (user is null)
         {
-            AddError("User not found");
             return null;
         }
         return user.MapToDto<User, UserDto>();
@@ -52,12 +51,13 @@ public class UserService : StatusGenericHandler, IUserService
     public async Task<TokenDto?> Login(LoginModel model)
     {
         var userDto = await GetUserByUsername(model.Username);
-        var user = userDto!.MapToEntity<User, UserDto>();
-        if (user is null)
+        if(userDto is null)
         {
             AddError("User not found");
             return null;
         }
+
+        var user = userDto!.MapToEntity<User, UserDto>();
         var isPasswordValid = ValidatePassword(user, model.Password);
         if (!isPasswordValid)
         {
@@ -78,8 +78,8 @@ public class UserService : StatusGenericHandler, IUserService
             AddError("Invalid access token");
             return null;
         }
-        var userDto = await GetUserByUsername(username);
-        var user = userDto!.MapToEntity<User, UserDto>();
+        var userFiles = await GetUserByUsername(username);
+        var user = userFiles!.MapToEntity<User, UserDto>();
         if (user is null)
         {
             AddError("User not found");
@@ -99,8 +99,8 @@ public class UserService : StatusGenericHandler, IUserService
 
     public async Task Register(CreateUserModel model)
     {
-        var userDto = await GetUserByUsername(model.Username);
-        var user = userDto!.MapToEntity<User, UserDto>();
+        var userFiles = await GetUserByUsername(model.Username);
+        var user = userFiles!.MapToEntity<User, UserDto>();
         if (user is not null)
         {
             AddError("Username already taken");
@@ -109,6 +109,7 @@ public class UserService : StatusGenericHandler, IUserService
 
         var newUser = model.MapToEntity<User, CreateUserModel>();
         newUser.PasswordHash = new PasswordHasher<User>().HashPassword(newUser, model.Password);
+        newUser.RoleId = 1;
         await _userRepository.UserRepository().Add(newUser);
         await _userRepository.UserRepository().SaveChanges();
 

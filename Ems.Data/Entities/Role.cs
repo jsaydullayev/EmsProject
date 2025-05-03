@@ -1,10 +1,9 @@
 ﻿using Ems.Data.Entities.BaseEntities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Ems.Data.Entities;
 
 namespace Ems.Data.Entities;
-[Table("info_role", Schema ="info")]
+[Table("info_role", Schema = "info")]
 public class Role : BaseInfoEntity
 {
     [Column("code")]
