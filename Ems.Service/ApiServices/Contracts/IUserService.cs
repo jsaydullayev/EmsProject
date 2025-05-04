@@ -11,5 +11,5 @@ public interface IUserService : IStatusGeneric
     Task Register(CreateUserModel model);
     Task<TokenDto?> Login(LoginModel model);
     Task<TokenDto?> RefreshToken(TokenDto model);
-    Task<ProfileModel> Profile(ClaimsPrincipal? user);
+    Task<UserDto> Profile(ClaimsPrincipal? user);
 }
