@@ -70,22 +70,30 @@ public class UserService : StatusGenericHandler, IUserService
         return token;
     }
 
-   // public Task<ProfileModel> Profile(ClaimsPrincipal? user)
-   // {
-   //     if (user is null)
-   //     {
-   //         AddError("User not found");
-   //     }
-   //     var userClaims = user.FindFirst(ClaimTypes.NameIdentifier);
-   //     if (userClaims is null)
-   //         AddError("Id not found");
-   //
-   //     var userdb = _userRepository.UserRepository().GetById(userClaims);
-   //     if (userdb is null)
-   //         AddError("User not found");
-   //
-   //     var userProfile = userdb.<User, ProfileModel>();
-   // }
+    public async Task<UserDto?> Profile(ClaimsPrincipal user)
+    {
+        if (user is null)
+        {
+            AddError("User not found");
+            return null;
+        }
+
+        var userClaims = user.FindFirst(ClaimTypes.NameIdentifier);
+        if (userClaims is null)
+        {
+            AddError("Id not found");
+            return null;
+        }
+        var userId = Guid.Parse(userClaims.Value!);
+        var userdb = await _userRepository.UserRepository().GetById(userId);
+        if (userdb is null)
+        {
+            AddError("User not found");
+            return null;
+        }
+
+        return userdb.MapToDto<User, UserDto>();
+    }
 
     public async Task<TokenDto?> RefreshToken(TokenDto model)
     {
@@ -118,6 +126,11 @@ public class UserService : StatusGenericHandler, IUserService
     public async Task Register(CreateUserModel model)
     {
         var userFiles = await GetUserByUsername(model.Username);
+        if(userFiles is null)
+        {
+            AddError("User not found");
+            return;
+        }
         var user = userFiles!.MapToEntity<User, UserDto>();
         if (user is not null)
         {

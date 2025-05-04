@@ -3,6 +3,7 @@ using Ems.Service.ApiServices;
 using Ems.Service.ApiServices.Contracts;
 using Ems.Service.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Ems.Api.Controllers;
 
@@ -38,13 +39,16 @@ public class UserController(IUserService userService) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Profile(Guid userId)
+    public async Task<IActionResult> Profile()
     {
-        var user = await _userService.GetUserById(userId);
+        var user = await _userService.Profile(User);
+
         if (_userService.IsValid)
         {
             return Ok(user);
         }
+
+        // Agar xatoliklar bo'lsa, ModelState'ga qo'shish
         _userService.CopyToModelState(ModelState);
         return BadRequest(ModelState);
     }
